@@ -49,6 +49,16 @@ public class CourseMaterial implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "CourseMaterial{" +
+                "materialsId=" + materialsId +
+                ", description='" + description + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", idCourseWeek=" + idCourseWeek +
+                '}';
+    }
+
     public ObjectId getMaterialsId() {
         return materialsId;
     }

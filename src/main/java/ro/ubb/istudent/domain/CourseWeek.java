@@ -88,6 +88,17 @@ public class CourseWeek implements Serializable {
         return result;
     }
 
+
+    @Override
+    public String toString() {
+        return "CourseWeek{" +
+                "idCourseWeek=" + idCourseWeek +
+                ", nrOfWeekes=" + nrOfWeekes +
+                ", courseMaterials=" + courseMaterials +
+                ", lectures=" + lectures +
+                '}';
+    }
+
     public ObjectId getIdCourseWeek() {
         return idCourseWeek;
     }

@@ -49,6 +49,16 @@ public class Assignment implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Assignment{" +
+                "idAssignment=" + idAssignment +
+                ", description='" + description + '\'' +
+                ", endDate=" + endDate +
+                ", idCourse=" + idCourse +
+                '}';
+    }
+
     public ObjectId getIdAssignment() {
         return idAssignment;
     }

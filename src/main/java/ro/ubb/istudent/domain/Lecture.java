@@ -49,6 +49,16 @@ public class Lecture implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Lecture{" +
+                "lectureId=" + lectureId +
+                ", description='" + description + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", idCourseWeek=" + idCourseWeek +
+                '}';
+    }
+
     public ObjectId getLectureId() {
         return lectureId;
     }

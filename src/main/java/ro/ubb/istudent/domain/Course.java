@@ -54,6 +54,17 @@ public class Course implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "idCourse=" + idCourse +
+                ", nameCourse='" + nameCourse + '\'' +
+                ", isPublished=" + isPublished +
+                ", teacherId=" + teacherId +
+                ", assignments=" + assignments +
+                '}';
+    }
+
     public ObjectId getIdCourse() {
         return idCourse;
     }

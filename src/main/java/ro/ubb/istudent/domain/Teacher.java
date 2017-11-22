@@ -65,6 +65,15 @@ public class Teacher implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "idTeacher=" + idTeacher +
+                ", name='" + name + '\'' +
+                ", courses=" + courses +
+                '}';
+    }
+
     public ObjectId getIdTeacher() {
         return idTeacher;
     }
