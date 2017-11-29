@@ -20,13 +20,12 @@ public class CourseMaterial implements Serializable {
 
     private String filePath;
 
-    private ObjectId idCourseWeek;
 
     public CourseMaterial(ObjectId materialsId, String description, String filePath, ObjectId idCourseWeek) {
         this.materialsId = materialsId;
         this.description = description;
         this.filePath = filePath;
-        this.idCourseWeek = idCourseWeek;
+
     }
 
     @Override
@@ -36,10 +35,9 @@ public class CourseMaterial implements Serializable {
 
         CourseMaterial that = (CourseMaterial) o;
 
-        if (!materialsId.equals(that.materialsId)) return false;
+        if (materialsId != null ? !materialsId.equals(that.materialsId) : that.materialsId != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (filePath != null ? !filePath.equals(that.filePath) : that.filePath != null) return false;
-        return idCourseWeek != null ? idCourseWeek.equals(that.idCourseWeek) : that.idCourseWeek == null;
+        return filePath != null ? filePath.equals(that.filePath) : that.filePath == null;
     }
 
     @Override
@@ -55,7 +53,6 @@ public class CourseMaterial implements Serializable {
                 "materialsId=" + materialsId +
                 ", description='" + description + '\'' +
                 ", filePath='" + filePath + '\'' +
-                ", idCourseWeek=" + idCourseWeek +
                 '}';
     }
 
@@ -83,11 +80,4 @@ public class CourseMaterial implements Serializable {
         this.filePath = filePath;
     }
 
-    public ObjectId getIdCourseWeek() {
-        return idCourseWeek;
-    }
-
-    public void setIdCourseWeek(ObjectId idCourseWeek) {
-        this.idCourseWeek = idCourseWeek;
-    }
 }

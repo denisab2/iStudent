@@ -20,13 +20,11 @@ public class Assignment implements Serializable {
 
     private Date endDate;
 
-    private ObjectId idCourse;
 
-
-    public Assignment(String description, Date endDate, ObjectId idCourse) {
+    public Assignment(String description, Date endDate) {
         this.description = description;
         this.endDate = endDate;
-        this.idCourse = idCourse;
+
     }
 
     @Override
@@ -36,10 +34,9 @@ public class Assignment implements Serializable {
 
         Assignment that = (Assignment) o;
 
-        if (!idAssignment.equals(that.idAssignment)) return false;
+        if (idAssignment != null ? !idAssignment.equals(that.idAssignment) : that.idAssignment != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
-        return idCourse != null ? idCourse.equals(that.idCourse) : that.idCourse == null;
+        return endDate != null ? endDate.equals(that.endDate) : that.endDate == null;
     }
 
     @Override
@@ -55,7 +52,6 @@ public class Assignment implements Serializable {
                 "idAssignment=" + idAssignment +
                 ", description='" + description + '\'' +
                 ", endDate=" + endDate +
-                ", idCourse=" + idCourse +
                 '}';
     }
 
@@ -83,11 +79,5 @@ public class Assignment implements Serializable {
         this.endDate = endDate;
     }
 
-    public ObjectId getIdCourse() {
-        return idCourse;
-    }
 
-    public void setIdCourse(ObjectId idCourse) {
-        this.idCourse = idCourse;
-    }
 }

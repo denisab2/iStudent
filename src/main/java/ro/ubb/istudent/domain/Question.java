@@ -21,13 +21,12 @@ public class Question implements Serializable, IQuestion {
 
     private String correctAnswer;
 
-    private ObjectId examId;
 
     public Question(ObjectId questionId, String text, String correctAnswer, ObjectId examId) {
         this.questionId = questionId;
         this.text = text;
         this.correctAnswer = correctAnswer;
-        this.examId = examId;
+
     }
 
 
@@ -38,11 +37,9 @@ public class Question implements Serializable, IQuestion {
 
         Question question = (Question) o;
 
-        if (!questionId.equals(question.questionId)) return false;
+        if (questionId != null ? !questionId.equals(question.questionId) : question.questionId != null) return false;
         if (text != null ? !text.equals(question.text) : question.text != null) return false;
-        if (correctAnswer != null ? !correctAnswer.equals(question.correctAnswer) : question.correctAnswer != null)
-            return false;
-        return examId != null ? examId.equals(question.examId) : question.examId == null;
+        return correctAnswer != null ? correctAnswer.equals(question.correctAnswer) : question.correctAnswer == null;
     }
 
     @Override
@@ -58,15 +55,12 @@ public class Question implements Serializable, IQuestion {
                 "questionId=" + questionId +
                 ", text='" + text + '\'' +
                 ", correctAnswer='" + correctAnswer + '\'' +
-                ", examId=" + examId +
                 '}';
     }
 
     @Override
     public boolean checkAnswer(String answer) {
-        if(answer.equals(this.correctAnswer))
-            return true;
-        return false;
+        return (answer.equals(this.correctAnswer));
     }
 
     public ObjectId getQuestionId() {
@@ -93,11 +87,4 @@ public class Question implements Serializable, IQuestion {
         this.correctAnswer = correctAnswer;
     }
 
-    public ObjectId getExamId() {
-        return examId;
-    }
-
-    public void setExamId(ObjectId examId) {
-        this.examId = examId;
-    }
 }

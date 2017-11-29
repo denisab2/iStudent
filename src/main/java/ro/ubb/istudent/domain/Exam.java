@@ -22,7 +22,6 @@ public class Exam implements Serializable {
 
     private Integer points;
 
-    private ObjectId idCourse;
 
     @DBRef
     private List<Question> questions;
@@ -32,7 +31,6 @@ public class Exam implements Serializable {
         this.examId = examId;
         this.type = type;
         this.points = points;
-        this.idCourse = idCourse;
         this.questions = questions;
     }
 
@@ -43,10 +41,9 @@ public class Exam implements Serializable {
 
         Exam exam = (Exam) o;
 
-        if (!examId.equals(exam.examId)) return false;
+        if (examId != null ? !examId.equals(exam.examId) : exam.examId != null) return false;
         if (type != null ? !type.equals(exam.type) : exam.type != null) return false;
         if (points != null ? !points.equals(exam.points) : exam.points != null) return false;
-        if (idCourse != null ? !idCourse.equals(exam.idCourse) : exam.idCourse != null) return false;
         return questions != null ? questions.equals(exam.questions) : exam.questions == null;
     }
 
@@ -64,7 +61,6 @@ public class Exam implements Serializable {
                 "examId=" + examId +
                 ", type='" + type + '\'' +
                 ", points=" + points +
-                ", idCourse=" + idCourse +
                 ", questions=" + questions +
                 '}';
     }
@@ -93,13 +89,6 @@ public class Exam implements Serializable {
         this.points = points;
     }
 
-    public ObjectId getIdCourse() {
-        return idCourse;
-    }
-
-    public void setIdCourse(ObjectId idCourse) {
-        this.idCourse = idCourse;
-    }
 
     public List<Question> getQuestions() {
         return questions;
