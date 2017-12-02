@@ -1,22 +1,17 @@
 package ro.ubb.istudent.dto;
 
-import org.bson.types.ObjectId;
-
 public class QuestionDto implements Dto, IQuestionDto {
 
-    private ObjectId questionId;
+    private String questionId;
 
     private String text;
 
     private String correctAnswer;
 
-    private ObjectId examId;
-
-    public QuestionDto(ObjectId questionId, String text, String correctAnswer, ObjectId examId) {
+    public QuestionDto(String questionId,String text, String correctAnswer) {
         this.questionId = questionId;
         this.text = text;
         this.correctAnswer = correctAnswer;
-        this.examId = examId;
     }
 
 
@@ -29,9 +24,7 @@ public class QuestionDto implements Dto, IQuestionDto {
 
         if (!questionId.equals(question.questionId)) return false;
         if (text != null ? !text.equals(question.text) : question.text != null) return false;
-        if (correctAnswer != null ? !correctAnswer.equals(question.correctAnswer) : question.correctAnswer != null)
-            return false;
-        return examId != null ? examId.equals(question.examId) : question.examId == null;
+        return !(correctAnswer != null ? !correctAnswer.equals(question.correctAnswer) : question.correctAnswer != null) ;
     }
 
     @Override
@@ -47,22 +40,14 @@ public class QuestionDto implements Dto, IQuestionDto {
                 "questionId=" + questionId +
                 ", text='" + text + '\'' +
                 ", correctAnswer='" + correctAnswer + '\'' +
-                ", examId=" + examId +
                 '}';
     }
 
-    @Override
-    public boolean checkAnswer(String answer) {
-        if(answer.equals(this.correctAnswer))
-            return true;
-        return false;
-    }
-
-    public ObjectId getQuestionId() {
+    public String getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(ObjectId questionId) {
+    public void setQuestionId(String questionId) {
         this.questionId = questionId;
     }
 
@@ -80,13 +65,5 @@ public class QuestionDto implements Dto, IQuestionDto {
 
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
-    }
-
-    public ObjectId getExamId() {
-        return examId;
-    }
-
-    public void setExamId(ObjectId examId) {
-        this.examId = examId;
     }
 }

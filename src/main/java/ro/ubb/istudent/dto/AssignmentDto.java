@@ -1,24 +1,19 @@
 package ro.ubb.istudent.dto;
 
-import org.bson.types.ObjectId;
-
 import java.util.Date;
 
 public class AssignmentDto implements Dto {
 
-    private ObjectId idAssignment;
+    private String idAssignment;
 
     private String description;
 
     private Date endDate;
 
-    private ObjectId idCourse;
 
-
-    public AssignmentDto(String description, Date endDate, ObjectId idCourse) {
+    public AssignmentDto(String description, Date endDate) {
         this.description = description;
         this.endDate = endDate;
-        this.idCourse = idCourse;
     }
 
     @Override
@@ -30,8 +25,7 @@ public class AssignmentDto implements Dto {
 
         if (!idAssignment.equals(that.idAssignment)) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
-        return idCourse != null ? idCourse.equals(that.idCourse) : that.idCourse == null;
+         return !(endDate != null ? !endDate.equals(that.endDate) : that.endDate != null);
     }
 
     @Override
@@ -47,15 +41,14 @@ public class AssignmentDto implements Dto {
                 "idAssignment=" + idAssignment +
                 ", description='" + description + '\'' +
                 ", endDate=" + endDate +
-                ", idCourse=" + idCourse +
                 '}';
     }
 
-    public ObjectId getIdAssignment() {
+    public String getIdAssignment() {
         return idAssignment;
     }
 
-    public void setIdAssignment(ObjectId idAssignment) {
+    public void setIdAssignment(String idAssignment) {
         this.idAssignment = idAssignment;
     }
 
@@ -73,13 +66,5 @@ public class AssignmentDto implements Dto {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    public ObjectId getIdCourse() {
-        return idCourse;
-    }
-
-    public void setIdCourse(ObjectId idCourse) {
-        this.idCourse = idCourse;
     }
 }

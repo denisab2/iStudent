@@ -1,23 +1,18 @@
 package ro.ubb.istudent.dto;
 
-import org.bson.types.ObjectId;
-
 public class CourseMaterialDto implements Dto {
 
 
-    private ObjectId materialsId;
+    private String materialsId;
 
     private String description;
 
     private String filePath;
 
-    private ObjectId idCourseWeek;
-
-    public CourseMaterialDto(ObjectId materialsId, String description, String filePath, ObjectId idCourseWeek) {
+    public CourseMaterialDto(String materialsId, String description, String filePath) {
         this.materialsId = materialsId;
         this.description = description;
         this.filePath = filePath;
-        this.idCourseWeek = idCourseWeek;
     }
 
     @Override
@@ -29,8 +24,7 @@ public class CourseMaterialDto implements Dto {
 
         if (!materialsId.equals(that.materialsId)) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (filePath != null ? !filePath.equals(that.filePath) : that.filePath != null) return false;
-        return idCourseWeek != null ? idCourseWeek.equals(that.idCourseWeek) : that.idCourseWeek == null;
+        return !(filePath != null ? !filePath.equals(that.filePath) : that.filePath != null);
     }
 
     @Override
@@ -46,15 +40,14 @@ public class CourseMaterialDto implements Dto {
                 "materialsId=" + materialsId +
                 ", description='" + description + '\'' +
                 ", filePath='" + filePath + '\'' +
-                ", idCourseWeek=" + idCourseWeek +
                 '}';
     }
 
-    public ObjectId getMaterialsId() {
+    public String getMaterialsId() {
         return materialsId;
     }
 
-    public void setMaterialsId(ObjectId materialsId) {
+    public void setMaterialsId(String materialsId) {
         this.materialsId = materialsId;
     }
 
@@ -72,13 +65,5 @@ public class CourseMaterialDto implements Dto {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
-    }
-
-    public ObjectId getIdCourseWeek() {
-        return idCourseWeek;
-    }
-
-    public void setIdCourseWeek(ObjectId idCourseWeek) {
-        this.idCourseWeek = idCourseWeek;
     }
 }

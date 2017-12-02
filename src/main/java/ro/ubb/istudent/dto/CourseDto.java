@@ -1,27 +1,24 @@
 package ro.ubb.istudent.dto;
 
-import org.bson.types.ObjectId;
-
 import java.util.List;
 
 public class CourseDto implements Dto {
 
-    private ObjectId idCourse;
+    private String idCourse;
 
     private String nameCourse;
 
     private Boolean isPublished;
 
-    private ObjectId teacherId;
+    private String teacherId;
 
     private List<AssignmentDto> assignments;
 
-    public CourseDto(String nameCourse, Boolean isPublished, ObjectId teacherId) {
+    public CourseDto(String nameCourse, Boolean isPublished, String teacherId) {
         this.nameCourse = nameCourse;
         this.isPublished = isPublished;
         this.teacherId = teacherId;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -54,11 +51,11 @@ public class CourseDto implements Dto {
                 '}';
     }
 
-    public ObjectId getIdCourse() {
+    public String getIdCourse() {
         return idCourse;
     }
 
-    public void setIdCourse(ObjectId idCourse) {
+    public void setIdCourse(String idCourse) {
         this.idCourse = idCourse;
     }
 
@@ -78,11 +75,11 @@ public class CourseDto implements Dto {
         isPublished = published;
     }
 
-    public ObjectId getTeacherId() {
+    public String getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(ObjectId teacherId) {
+    public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
     }
 }

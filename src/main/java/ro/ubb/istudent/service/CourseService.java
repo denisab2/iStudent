@@ -1,5 +1,6 @@
 package ro.ubb.istudent.service;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class CourseService {
 
     public Optional<CourseDto> findCourseById(String IdCourse) {
         return repository.findCourseByIdCourse(IdCourse)
-                .map(this::CourseToCourseDTO);
+                .map(CourseService::CourseToCourseDTO);
     }
 
     public void updateCourseWithId(String IdCourse, CourseDto request) {
@@ -30,7 +31,7 @@ public class CourseService {
             Course CourseE = optionalCourseEntity.get();
             CourseE.setNameCourse(request.getNameCourse());
             CourseE.setPublished(request.getPublished());
-            CourseE.setTeacherId(request.getTeacherId());
+            CourseE.setTeacherId(new ObjectId(request.getTeacherId()));
             repository.save(CourseE);
         } else {
             LOG.error("Course with id {} not found", IdCourse);
@@ -50,14 +51,15 @@ public class CourseService {
         return CourseToCourseDTO(repository.save(CourseDTOToEntity(Course)));
     }
 
-    private CourseDto CourseToCourseDTO(Course entity) {
-        CourseDto dto = new CourseDto(entity.getNameCourse(),entity.getPublished(),entity.getTeacherId());
-        dto.setIdCourse(entity.getIdCourse());
+    public static CourseDto CourseToCourseDTO(Course entity) {
+        CourseDto dto = new CourseDto(entity.getNameCourse(),entity.getPublished(),entity.getTeacherId().toHexString());
+        dto.setIdCourse(entity.getIdCourse().toHexString());
         return dto;
     }
 
-    private Course CourseDTOToEntity(CourseDto dto) {
-        Course entity = new Course(dto.getNameCourse(),dto.getPublished(),dto.getTeacherId());
+    public static Course CourseDTOToEntity(CourseDto dto) {
+        Course entity = new Course(dto.getNameCourse(),dto.getPublished(),new ObjectId(dto.getTeacherId()));
+        entity.setIdCourse(new ObjectId(dto.getIdCourse()));
         return entity;
     }
 }
