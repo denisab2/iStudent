@@ -21,12 +21,12 @@ public class LectureService {
     }
 
     public Optional<LectureDto> findLectureById(String LectureId) {
-        return repository.findLectureById(LectureId)
-                .map(LectureService::LectureToLectureDTO);
+        return repository.findLectureByLectureId(LectureId)
+                .map(LectureService::lectureToLectureDTO);
     }
 
-    public void updateLectureWithId(String LectureId, LectureDto request) {
-        Optional<Lecture> optionalLecture = repository.findLectureById(LectureId);
+    public void updateLectureById(String LectureId, LectureDto request) {
+        Optional<Lecture> optionalLecture = repository.findLectureByLectureId(LectureId);
         if (optionalLecture.isPresent()) {
             Lecture lecture = optionalLecture.get();
             lecture.setDescription(request.getDescription());
@@ -38,7 +38,7 @@ public class LectureService {
     }
 
     public void deleteLectureById(String LectureId) {
-        Optional<Lecture> optionalLecture = repository.findLectureById(LectureId);
+        Optional<Lecture> optionalLecture = repository.findLectureByLectureId(LectureId);
         if (optionalLecture.isPresent()) {
             repository.delete(optionalLecture.get());
         } else {
@@ -46,17 +46,17 @@ public class LectureService {
         }
     }
 
-    public LectureDto createLecture(LectureDto Lecture) {
-        return LectureToLectureDTO(repository.save(LectureDTOToLecture(Lecture)));
+    public LectureDto saveLecture(LectureDto Lecture) {
+        return lectureToLectureDTO(repository.save(lectureDTOToLecture(Lecture)));
     }
 
-    public static LectureDto LectureToLectureDTO(Lecture entity) {
+    public static LectureDto lectureToLectureDTO(Lecture entity) {
         LectureDto dto = new LectureDto(entity.getLectureId().toHexString(),entity.getDescription(),
                 entity.getFilePath());
         return dto;
     }
 
-    public static Lecture LectureDTOToLecture(LectureDto dto) {
+    public static Lecture lectureDTOToLecture(LectureDto dto) {
         Lecture entity = new Lecture(new ObjectId(dto.getLectureId()),dto.getDescription(),dto.getFilePath());
         return entity;
     }

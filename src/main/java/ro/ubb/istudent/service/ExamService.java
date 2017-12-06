@@ -22,12 +22,12 @@ public class ExamService {
     }
 
     public Optional<ExamDto> findExamById(String ExamId) {
-        return repository.findExamById(ExamId)
-                .map(this::ExamToExamDTO);
+        return repository.findExamByExamId(ExamId)
+                .map(this::examToExamDTO);
     }
 
-    public void updateExamWithId(String ExamId, ExamDto request) {
-        Optional<Exam> optionalExam = repository.findExamById(ExamId);
+    public void updateExamById(String ExamId, ExamDto request) {
+        Optional<Exam> optionalExam = repository.findExamByExamId(ExamId);
         if (optionalExam.isPresent()) {
             Exam examEntity = optionalExam.get();
             examEntity.setPoints(request.getPoints());
@@ -41,7 +41,7 @@ public class ExamService {
     }
 
     public void deleteExamById(String ExamId) {
-        Optional<Exam> optionalExamEntity = repository.findExamById(ExamId);
+        Optional<Exam> optionalExamEntity = repository.findExamByExamId(ExamId);
         if (optionalExamEntity.isPresent()) {
             repository.delete(optionalExamEntity.get());
         } else {
@@ -49,18 +49,19 @@ public class ExamService {
         }
     }
 
-    public ExamDto createExam(ExamDto Exam) {
-        return ExamToExamDTO(repository.save(ExamDTOToExam(Exam)));
+    public ExamDto saveExam(ExamDto Exam)
+    {
+        return examToExamDTO(repository.save(examDTOToExam(Exam)));
     }
 
-    private ExamDto ExamToExamDTO(Exam entity) {
+    private ExamDto examToExamDTO(Exam entity) {
         ExamDto dto = new ExamDto(entity.getExamId().toHexString(),entity.getType(),
                 entity.getPoints(),entity.getQuestions().stream()
                 .map(QuestionService::questionToQuestionDTO).collect(Collectors.toList()));
         return dto;
     }
 
-    private Exam ExamDTOToExam(ExamDto dto) {
+    private Exam examDTOToExam(ExamDto dto) {
         Exam entity = new Exam(new ObjectId(dto.getExamId()),dto.getType(),dto.getPoints(),
                 dto.getQuestions().stream()
                         .map(QuestionService::questionDTOToQuestion).collect(Collectors.toList()));

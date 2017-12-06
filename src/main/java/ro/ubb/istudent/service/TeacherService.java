@@ -22,16 +22,16 @@ public class TeacherService {
     }
 
     public Optional<TeacherDto> findTeacherById(String teacherId) {
-        return repository.findTeacherById(teacherId)
+        return repository.findTeacherByIdTeacher(teacherId)
                 .map(this::teacherToTeacherDTO);
     }
 
-    public void updateTeacherWithId(String teacherId, TeacherDto request) {
-        Optional<Teacher> optionalTeacher = repository.findTeacherById(teacherId);
+    public void updateTeacherById(String teacherId, TeacherDto request) {
+        Optional<Teacher> optionalTeacher = repository.findTeacherByIdTeacher(teacherId);
         if (optionalTeacher.isPresent()) {
             Teacher teacher = optionalTeacher.get();
             teacher.setCourses(request.getCourses().stream()
-                    .map(CourseService::CourseDTOToEntity).collect(Collectors.toList()));
+                    .map(CourseService::courseDTOToCourse).collect(Collectors.toList()));
             teacher.setName(request.getName());
             repository.save(teacher);
         } else {
@@ -40,7 +40,7 @@ public class TeacherService {
     }
 
     public void deleteTeacherById(String teacherId) {
-        Optional<Teacher> optionalTeacher = repository.findTeacherById(teacherId);
+        Optional<Teacher> optionalTeacher = repository.findTeacherByIdTeacher(teacherId);
         if (optionalTeacher.isPresent()) {
             repository.delete(optionalTeacher.get());
         } else {
@@ -56,14 +56,14 @@ public class TeacherService {
         TeacherDto dto = new TeacherDto(entity.getName());
         dto.setIdTeacher(entity.getIdTeacher().toHexString());
         dto.setCourses(entity.getCourses().stream()
-                .map(CourseService::CourseToCourseDTO).collect(Collectors.toList()));
+                .map(CourseService::courseToCourseDTO).collect(Collectors.toList()));
         return dto;
     }
 
     private Teacher teacherDTOToTeacher(TeacherDto dto) {
         Teacher entity = new Teacher(dto.getName());
         entity.setCourses(dto.getCourses().stream()
-                .map(CourseService::CourseDTOToEntity).collect(Collectors.toList()));
+                .map(CourseService::courseDTOToCourse).collect(Collectors.toList()));
         entity.setIdTeacher(new ObjectId(dto.getIdTeacher()));
         return entity;
     }

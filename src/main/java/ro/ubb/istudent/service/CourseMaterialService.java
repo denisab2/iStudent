@@ -21,12 +21,12 @@ public class CourseMaterialService {
     }
 
     public Optional<CourseMaterialDto> findCourseMaterialById(String CourseMaterialId) {
-        return repository.findCourseMaterialById(CourseMaterialId)
-                .map(CourseMaterialService::CourseMaterialToCourseMaterialDTO);
+        return repository.findCourseMaterialByMaterialsId(CourseMaterialId)
+                .map(CourseMaterialService::courseMaterialToCourseMaterialDTO);
     }
 
-    public void updateCourseMaterialWithId(String CourseMaterialId, CourseMaterialDto request) {
-        Optional<CourseMaterial> optionalCourseMaterial = repository.findCourseMaterialById(CourseMaterialId);
+    public void updateCourseMaterialById(String CourseMaterialId, CourseMaterialDto request) {
+        Optional<CourseMaterial> optionalCourseMaterial = repository.findCourseMaterialByMaterialsId(CourseMaterialId);
         if (optionalCourseMaterial.isPresent()) {
             CourseMaterial courseMaterial = optionalCourseMaterial.get();
             courseMaterial.setDescription(request.getDescription());
@@ -38,7 +38,7 @@ public class CourseMaterialService {
     }
 
     public void deleteCourseMaterialById(String CourseMaterialId) {
-        Optional<CourseMaterial> optionalCourseMaterial = repository.findCourseMaterialById(CourseMaterialId);
+        Optional<CourseMaterial> optionalCourseMaterial = repository.findCourseMaterialByMaterialsId(CourseMaterialId);
         if (optionalCourseMaterial.isPresent()) {
             repository.delete(optionalCourseMaterial.get());
         } else {
@@ -46,18 +46,18 @@ public class CourseMaterialService {
         }
     }
 
-    public CourseMaterialDto createCourseMaterial(CourseMaterialDto CourseMaterial) {
-        return CourseMaterialToCourseMaterialDTO(repository.save(CourseMaterialDTOToCourseMaterial(CourseMaterial)));
+    public CourseMaterialDto saveCourseMaterial(CourseMaterialDto CourseMaterial) {
+        return courseMaterialToCourseMaterialDTO(repository.save(courseMaterialDTOToCourseMaterial(CourseMaterial)));
     }
 
-    public static CourseMaterialDto CourseMaterialToCourseMaterialDTO(CourseMaterial entity) {
+    public static CourseMaterialDto courseMaterialToCourseMaterialDTO(CourseMaterial entity) {
         CourseMaterialDto dto = new CourseMaterialDto(entity.getMaterialsId().toHexString()
                 ,entity.getDescription(),entity.getFilePath());
         return dto;
     }
 
-    public static CourseMaterial CourseMaterialDTOToCourseMaterial(CourseMaterialDto dto) {
-        CourseMaterial entity = new CourseMaterial(dto.getMaterialsId(),dto.getDescription(),dto.getFilePath());
+    public static CourseMaterial courseMaterialDTOToCourseMaterial(CourseMaterialDto dto) {
+        CourseMaterial entity = new CourseMaterial(new ObjectId(dto.getMaterialsId()),dto.getDescription(),dto.getFilePath());
         return entity;
     }
 }

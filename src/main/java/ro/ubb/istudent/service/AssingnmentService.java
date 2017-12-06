@@ -13,20 +13,20 @@ import java.util.Optional;
 @Service
 public class AssingnmentService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GreetingService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssingnmentService.class);
     private final AssingnmentRepository repository;
 
     public AssingnmentService(AssingnmentRepository repository) {
         this.repository = repository;
     }
 
-    public Optional<AssignmentDto> findGreetingById(String Id) {
-        return repository.findAssignmentById(Id)
-                .map(this::ssignmentToAssignmentDTO);
+    public Optional<AssignmentDto> findAssigmentById(String Id) {
+        return repository.findAssigmentByIdAssigment(Id)
+                .map(this::assignmentToAssignmentDTO);
     }
 
-    public void updateAssignmentWithId(String assignmentId, AssignmentDto request) {
-        Optional<Assignment> optionalAssignment = repository.findAssignmentById(assignmentId);
+    public void updateAssignmentById(String assignmentId, AssignmentDto request) {
+        Optional<Assignment> optionalAssignment = repository.findAssigmentByIdAssigment(assignmentId);
         if (optionalAssignment.isPresent()) {
             Assignment assignment = optionalAssignment.get();
             assignment.setDescription(request.getDescription());
@@ -38,7 +38,7 @@ public class AssingnmentService {
     }
 
     public void deleteAssignmentById(String assignmentId) {
-        Optional<Assignment> optionalAssignment = repository.findAssignmentById(assignmentId);
+        Optional<Assignment> optionalAssignment = repository.findAssigmentByIdAssigment(assignmentId);
         if (optionalAssignment.isPresent()) {
             repository.delete(optionalAssignment.get());
         } else {
@@ -46,11 +46,11 @@ public class AssingnmentService {
         }
     }
 
-    public AssignmentDto createGreeting(AssignmentDto assignment) {
-        return ssignmentToAssignmentDTO(repository.save(assignmentDTOToAssignment(assignment)));
+    public AssignmentDto saveAssigment(AssignmentDto assignment) {
+        return assignmentToAssignmentDTO(repository.save(assignmentDTOToAssignment(assignment)));
     }
 
-    private AssignmentDto ssignmentToAssignmentDTO(Assignment entity) {
+    private AssignmentDto assignmentToAssignmentDTO(Assignment entity) {
         AssignmentDto dto = new AssignmentDto(entity.getDescription(),entity.getEndDate());
         dto.setIdAssignment(entity.getIdAssignment().toHexString());
         return dto;

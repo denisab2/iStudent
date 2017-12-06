@@ -22,16 +22,16 @@ public class CourseWeekService {
     }
 
     public Optional<CourseWeekDto> findCourseWeekById(String CourseWeekId) {
-        return repository.findCourseWeekById(CourseWeekId)
-                .map(this::CourseWeekToCourseWeekDTO);
+        return repository.findCourseWeekByIdCourseWeek(CourseWeekId)
+                .map(this::courseWeekToCourseWeekDTO);
     }
 
-    public void updateCourseWeekWithId(String CourseWeekId, CourseWeekDto request) {
-        Optional<CourseWeek> optionalCourseWeek = repository.findCourseWeekById(CourseWeekId);
+    public void updateCourseWeekById(String CourseWeekId, CourseWeekDto request) {
+        Optional<CourseWeek> optionalCourseWeek = repository.findCourseWeekByIdCourseWeek(CourseWeekId);
         if (optionalCourseWeek.isPresent()) {
             CourseWeek courseWeek = optionalCourseWeek.get();
             courseWeek.setCourseMaterials(request.getCourseMaterials().stream()
-                    .map(CourseMaterialService::CourseMaterialDTOToCourseMaterial).collect(Collectors.toList()));
+                    .map(CourseMaterialService::courseMaterialDTOToCourseMaterial).collect(Collectors.toList()));
             courseWeek.setNrOfWeekes(request.getNrOfWeekes());
             courseWeek.setLectures(request.getLectures().stream()
             .map(LectureService::LectureDTOToLecture).collect(Collectors.toList()));
@@ -42,7 +42,7 @@ public class CourseWeekService {
     }
 
     public void deleteCourseWeekById(String CourseWeekId) {
-        Optional<CourseWeek> optionalCourseWeek = repository.findCourseWeekById(CourseWeekId);
+        Optional<CourseWeek> optionalCourseWeek = repository.findCourseWeekByIdCourseWeek(CourseWeekId);
         if (optionalCourseWeek.isPresent()) {
             repository.delete(optionalCourseWeek.get());
         } else {
@@ -50,25 +50,25 @@ public class CourseWeekService {
         }
     }
 
-    public CourseWeekDto createCourseWeek(CourseWeekDto CourseWeek) {
-        return CourseWeekToCourseWeekDTO(repository.save(CourseWeekDTOToCourseWeek(CourseWeek)));
+    public CourseWeekDto saveCourseWeek(CourseWeekDto CourseWeek) {
+        return courseWeekToCourseWeekDTO(repository.save(courseWeekDTOToCourseWeek(CourseWeek)));
     }
 
-    private CourseWeekDto CourseWeekToCourseWeekDTO(CourseWeek entity) {
+    private CourseWeekDto courseWeekToCourseWeekDTO(CourseWeek entity) {
         CourseWeekDto dto = new CourseWeekDto(entity.getIdCourseWeek().toHexString(),entity.getNrOfWeekes());
         dto.setCourseMaterials(entity.getCourseMaterials().stream()
-                .map(CourseMaterialService::CourseMaterialToCourseMaterialDTO).collect(Collectors.toList()));
+                .map(CourseMaterialService::courseMaterialToCourseMaterialDTO).collect(Collectors.toList()));
         dto.setLectures(entity.getLectures().stream()
                 .map(LectureService::LectureToLectureDTO).collect(Collectors.toList()));
         return dto;
     }
 
-    private CourseWeek CourseWeekDTOToCourseWeek(CourseWeekDto dto) {
+    private CourseWeek courseWeekDTOToCourseWeek(CourseWeekDto dto) {
         CourseWeek entity = new CourseWeek(new ObjectId(dto.getIdCourseWeek()),dto.getNrOfWeekes());
         entity.setLectures(dto.getLectures().stream()
                 .map(LectureService::LectureDTOToLecture).collect(Collectors.toList()));
         entity.setCourseMaterials(dto.getCourseMaterials().stream()
-                .map(CourseMaterialService::CourseMaterialDTOToCourseMaterial).collect(Collectors.toList()));
+                .map(CourseMaterialService::courseMaterialDTOToCourseMaterial).collect(Collectors.toList()));
         return entity;
     }
 }

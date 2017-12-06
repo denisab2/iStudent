@@ -22,10 +22,10 @@ public class CourseService {
 
     public Optional<CourseDto> findCourseById(String IdCourse) {
         return repository.findCourseByIdCourse(IdCourse)
-                .map(CourseService::CourseToCourseDTO);
+                .map(CourseService::courseToCourseDTO);
     }
 
-    public void updateCourseWithId(String IdCourse, CourseDto request) {
+    public void updateCourseById(String IdCourse, CourseDto request) {
         Optional<Course> optionalCourseEntity = repository.findCourseByIdCourse(IdCourse);
         if (optionalCourseEntity.isPresent()) {
             Course CourseE = optionalCourseEntity.get();
@@ -47,17 +47,17 @@ public class CourseService {
         }
     }
 
-    public CourseDto createCourse(CourseDto Course) {
-        return CourseToCourseDTO(repository.save(CourseDTOToEntity(Course)));
+    public CourseDto saveCourse(CourseDto Course) {
+        return courseToCourseDTO(repository.save(courseDTOToCourse(Course)));
     }
 
-    public static CourseDto CourseToCourseDTO(Course entity) {
+    public static CourseDto courseToCourseDTO(Course entity) {
         CourseDto dto = new CourseDto(entity.getNameCourse(),entity.getPublished(),entity.getTeacherId().toHexString());
         dto.setIdCourse(entity.getIdCourse().toHexString());
         return dto;
     }
 
-    public static Course CourseDTOToEntity(CourseDto dto) {
+    public static Course courseDTOToCourse(CourseDto dto) {
         Course entity = new Course(dto.getNameCourse(),dto.getPublished(),new ObjectId(dto.getTeacherId()));
         entity.setIdCourse(new ObjectId(dto.getIdCourse()));
         return entity;

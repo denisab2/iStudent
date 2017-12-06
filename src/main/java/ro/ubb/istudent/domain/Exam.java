@@ -27,7 +27,7 @@ public class Exam implements Serializable {
     private List<Question> questions;
 
 
-    public Exam(ObjectId examId, String type, Integer points, ObjectId idCourse, List<Question> questions) {
+    public Exam(ObjectId examId, String type, Integer points, List<Question> questions) {
         this.examId = examId;
         this.type = type;
         this.points = points;

@@ -21,12 +21,12 @@ public class QuestionService {
     }
 
     public Optional<QuestionDto> findQuestionById(String questionId) {
-        return repository.findQuestionById(questionId)
+        return repository.findQuestionByQuestionId(questionId)
                 .map(QuestionService::questionToQuestionDTO);
     }
 
-    public void updateQuestionWithId(String questionId, QuestionDto request) {
-        Optional<Question> optionalQuestion = repository.findQuestionById(questionId);
+    public void updateQuestionById(String questionId, QuestionDto request) {
+        Optional<Question> optionalQuestion = repository.findQuestionByQuestionId(questionId);
         if (optionalQuestion.isPresent()) {
             Question questionEntity = optionalQuestion.get();
             questionEntity.setCorrectAnswer(request.getCorrectAnswer());
@@ -38,7 +38,7 @@ public class QuestionService {
     }
 
     public void deleteQuestionById(String questionId) {
-        Optional<Question> optionalQuestion = repository.findQuestionById(questionId);
+        Optional<Question> optionalQuestion = repository.findQuestionByQuestionId(questionId);
         if (optionalQuestion.isPresent()) {
             repository.delete(optionalQuestion.get());
         } else {
@@ -46,7 +46,7 @@ public class QuestionService {
         }
     }
 
-    public QuestionDto createQuestion(QuestionDto question) {
+    public QuestionDto saveQuestion(QuestionDto question) {
         return questionToQuestionDTO(repository.save(questionDTOToQuestion(question)));
     }
 

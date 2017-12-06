@@ -21,7 +21,7 @@ public class CourseMaterial implements Serializable {
     private String filePath;
 
 
-    public CourseMaterial(ObjectId materialsId, String description, String filePath, ObjectId idCourseWeek) {
+    public CourseMaterial(ObjectId materialsId, String description, String filePath) {
         this.materialsId = materialsId;
         this.description = description;
         this.filePath = filePath;
