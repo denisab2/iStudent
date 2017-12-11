@@ -22,7 +22,7 @@ public class Question implements Serializable, IQuestion {
     private String correctAnswer;
 
 
-    public Question(ObjectId questionId, String text, String correctAnswer, ObjectId examId) {
+    public Question(ObjectId questionId, String text, String correctAnswer) {
         this.questionId = questionId;
         this.text = text;
         this.correctAnswer = correctAnswer;
