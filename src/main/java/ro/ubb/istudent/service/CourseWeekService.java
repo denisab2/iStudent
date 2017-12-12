@@ -34,7 +34,7 @@ public class CourseWeekService {
                     .map(CourseMaterialService::courseMaterialDTOToCourseMaterial).collect(Collectors.toList()));
             courseWeek.setNrOfWeekes(request.getNrOfWeekes());
             courseWeek.setLectures(request.getLectures().stream()
-            .map(LectureService::LectureDTOToLecture).collect(Collectors.toList()));
+            .map(LectureService::lectureDTOToLecture).collect(Collectors.toList()));
             repository.save(courseWeek);
         } else {
             LOG.error("CourseWeek with id {} not found", CourseWeekId);
@@ -59,14 +59,14 @@ public class CourseWeekService {
         dto.setCourseMaterials(entity.getCourseMaterials().stream()
                 .map(CourseMaterialService::courseMaterialToCourseMaterialDTO).collect(Collectors.toList()));
         dto.setLectures(entity.getLectures().stream()
-                .map(LectureService::LectureToLectureDTO).collect(Collectors.toList()));
+                .map(LectureService::lectureToLectureDTO).collect(Collectors.toList()));
         return dto;
     }
 
     private CourseWeek courseWeekDTOToCourseWeek(CourseWeekDto dto) {
         CourseWeek entity = new CourseWeek(new ObjectId(dto.getIdCourseWeek()),dto.getNrOfWeekes());
         entity.setLectures(dto.getLectures().stream()
-                .map(LectureService::LectureDTOToLecture).collect(Collectors.toList()));
+                .map(LectureService::lectureDTOToLecture).collect(Collectors.toList()));
         entity.setCourseMaterials(dto.getCourseMaterials().stream()
                 .map(CourseMaterialService::courseMaterialDTOToCourseMaterial).collect(Collectors.toList()));
         return entity;

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ro.ubb.istudent.domain.Assignment;
 import ro.ubb.istudent.dto.AssignmentDto;
-import ro.ubb.istudent.repository.AssingnmentRepository;
+import ro.ubb.istudent.repository.AssignmentRepository;
 
 import java.util.Optional;
 
@@ -14,19 +14,19 @@ import java.util.Optional;
 public class AssingnmentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssingnmentService.class);
-    private final AssingnmentRepository repository;
+    private final AssignmentRepository repository;
 
-    public AssingnmentService(AssingnmentRepository repository) {
+    public AssingnmentService(AssignmentRepository repository) {
         this.repository = repository;
     }
 
-    public Optional<AssignmentDto> findAssigmentById(String Id) {
-        return repository.findAssigmentByIdAssigment(Id)
+    public Optional<AssignmentDto> findAssignmentById(String Id) {
+        return repository.findAssignmentByIdAssignment(Id)
                 .map(this::assignmentToAssignmentDTO);
     }
 
     public void updateAssignmentById(String assignmentId, AssignmentDto request) {
-        Optional<Assignment> optionalAssignment = repository.findAssigmentByIdAssigment(assignmentId);
+        Optional<Assignment> optionalAssignment = repository.findAssignmentByIdAssignment(assignmentId);
         if (optionalAssignment.isPresent()) {
             Assignment assignment = optionalAssignment.get();
             assignment.setDescription(request.getDescription());
@@ -38,7 +38,7 @@ public class AssingnmentService {
     }
 
     public void deleteAssignmentById(String assignmentId) {
-        Optional<Assignment> optionalAssignment = repository.findAssigmentByIdAssigment(assignmentId);
+        Optional<Assignment> optionalAssignment = repository.findAssignmentByIdAssignment(assignmentId);
         if (optionalAssignment.isPresent()) {
             repository.delete(optionalAssignment.get());
         } else {
@@ -46,7 +46,7 @@ public class AssingnmentService {
         }
     }
 
-    public AssignmentDto saveAssigment(AssignmentDto assignment) {
+    public AssignmentDto saveAssignment(AssignmentDto assignment) {
         return assignmentToAssignmentDTO(repository.save(assignmentDTOToAssignment(assignment)));
     }
 
