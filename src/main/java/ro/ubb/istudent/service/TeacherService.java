@@ -48,7 +48,7 @@ public class TeacherService {
         }
     }
 
-    public TeacherDto createTeacher(TeacherDto teacher) {
+    public TeacherDto saveTeacher(TeacherDto teacher) {
         return teacherToTeacherDTO(repository.save(teacherDTOToTeacher(teacher)));
     }
 

@@ -11,12 +11,12 @@ import ro.ubb.istudent.repository.AssignmentRepository;
 import java.util.Optional;
 
 @Service
-public class AssingnmentService {
+public class AssignmentService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AssingnmentService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssignmentService.class);
     private final AssignmentRepository repository;
 
-    public AssingnmentService(AssignmentRepository repository) {
+    public AssignmentService(AssignmentRepository repository) {
         this.repository = repository;
     }
 
