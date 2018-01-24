@@ -1,14 +1,11 @@
 package ro.ubb.istudent.dto;
 
-import javassist.bytecode.DuplicateMemberException;
-import org.bson.types.ObjectId;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseWeekDto implements Dto {
 
-    private ObjectId idCourseWeek;
+    private String idCourseWeek;
 
     private Integer nrOfWeekes;
 
@@ -17,38 +14,7 @@ public class CourseWeekDto implements Dto {
     private List<LectureDto> lectures;
 
 
-
-    public void addLecture(LectureDto lecture) throws DuplicateMemberException {
-        if(checkIdInListLecture(lecture.getLectureId()) == false)
-            lectures.add(lecture);
-        else
-            throw new DuplicateMemberException("Id already exists.");
-    }
-
-    public boolean checkIdInListLecture(ObjectId id){
-        for (LectureDto c : lectures)
-            if(c.getLectureId().equals(id))
-                return true;
-        return false;
-    }
-
-
-    public void addCourseMaterial(CourseMaterialDto courseMat) throws DuplicateMemberException {
-        if(checkIdInListMaterial(courseMat.getMaterialsId()) == false)
-            courseMaterials.add(courseMat);
-        else
-            throw new DuplicateMemberException("Id already exists.");
-    }
-
-    public boolean checkIdInListMaterial(ObjectId id){
-        for (CourseMaterialDto c : courseMaterials)
-            if(c.getMaterialsId().equals(id))
-                return true;
-        return false;
-    }
-
-
-    public CourseWeekDto(ObjectId idCourseWeek, Integer nrOfWeekes) {
+    public CourseWeekDto(String idCourseWeek, Integer nrOfWeekes) {
         this.idCourseWeek = idCourseWeek;
         this.nrOfWeekes = nrOfWeekes;
         courseMaterials = new ArrayList<>();
@@ -87,11 +53,11 @@ public class CourseWeekDto implements Dto {
                 '}';
     }
 
-    public ObjectId getIdCourseWeek() {
+    public String getIdCourseWeek() {
         return idCourseWeek;
     }
 
-    public void setIdCourseWeek(ObjectId idCourseWeek) {
+    public void setIdCourseWeek(String idCourseWeek) {
         this.idCourseWeek = idCourseWeek;
     }
 

@@ -1,27 +1,22 @@
 package ro.ubb.istudent.dto;
 
-import org.bson.types.ObjectId;
-
 import java.util.List;
 
 public class ExamDto implements Dto {
 
-    private ObjectId examId;
+    private String examId;
 
     private String type;
 
     private Integer points;
 
-    private ObjectId idCourse;
-
     private List<QuestionDto> questions;
 
 
-    public ExamDto(ObjectId examId, String type, Integer points, ObjectId idCourse, List<QuestionDto> questions) {
+    public ExamDto(String examId, String type, Integer points, List<QuestionDto> questions) {
         this.examId = examId;
         this.type = type;
         this.points = points;
-        this.idCourse = idCourse;
         this.questions = questions;
     }
 
@@ -35,7 +30,6 @@ public class ExamDto implements Dto {
         if (!examId.equals(exam.examId)) return false;
         if (type != null ? !type.equals(exam.type) : exam.type != null) return false;
         if (points != null ? !points.equals(exam.points) : exam.points != null) return false;
-        if (idCourse != null ? !idCourse.equals(exam.idCourse) : exam.idCourse != null) return false;
         return questions != null ? questions.equals(exam.questions) : exam.questions == null;
     }
 
@@ -53,16 +47,15 @@ public class ExamDto implements Dto {
                 "examId=" + examId +
                 ", type='" + type + '\'' +
                 ", points=" + points +
-                ", idCourse=" + idCourse +
                 ", questions=" + questions +
                 '}';
     }
 
-    public ObjectId getExamId() {
+    public String getExamId() {
         return examId;
     }
 
-    public void setExamId(ObjectId examId) {
+    public void setExamId(String examId) {
         this.examId = examId;
     }
 
@@ -80,14 +73,6 @@ public class ExamDto implements Dto {
 
     public void setPoints(Integer points) {
         this.points = points;
-    }
-
-    public ObjectId getIdCourse() {
-        return idCourse;
-    }
-
-    public void setIdCourse(ObjectId idCourse) {
-        this.idCourse = idCourse;
     }
 
     public List<QuestionDto> getQuestions() {

@@ -1,14 +1,11 @@
 package ro.ubb.istudent.dto;
 
-import javassist.bytecode.DuplicateMemberException;
-import org.bson.types.ObjectId;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherDto implements Dto {
 
-    private ObjectId idTeacher;
+    private String idTeacher;
 
     private  String name;
 
@@ -17,20 +14,6 @@ public class TeacherDto implements Dto {
     public TeacherDto(String name) {
         this.name = name;
         courses = new ArrayList<>();
-    }
-
-    public void addCourse(CourseDto course) throws DuplicateMemberException {
-        if(checkIdInList(course.getIdCourse()) == false)
-            courses.add(course);
-        else
-            throw new DuplicateMemberException("Id already exists.");
-    }
-
-    public boolean checkIdInList(ObjectId id){
-        for (CourseDto c : courses)
-            if(c.getIdCourse().equals(id))
-                return true;
-        return false;
     }
 
     @Override
@@ -61,11 +44,11 @@ public class TeacherDto implements Dto {
                 '}';
     }
 
-    public ObjectId getIdTeacher() {
+    public String getIdTeacher() {
         return idTeacher;
     }
 
-    public void setIdTeacher(ObjectId idTeacher) {
+    public void setIdTeacher(String idTeacher) {
         this.idTeacher = idTeacher;
     }
 
