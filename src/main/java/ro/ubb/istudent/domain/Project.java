@@ -1,5 +1,6 @@
 package ro.ubb.istudent.domain;
 
+import groovy.transform.ToString;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
