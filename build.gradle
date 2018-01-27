@@ -49,10 +49,12 @@ configurations {
 }
 
 dependencies {
+    compile('org.projectlombok:lombok')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
+    compile 'org.mongodb.morphia:morphia:1.3.2'
     runtime('com.h2database:h2')
     compile('org.projectlombok:lombok')
     runtime('mysql:mysql-connector-java')

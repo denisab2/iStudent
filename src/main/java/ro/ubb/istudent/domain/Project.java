@@ -2,17 +2,19 @@ package ro.ubb.istudent.domain;
 
 import lombok.*;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Validation;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by Administrator on 26.01.2018.
  */
-@Builder
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-@RequiredArgsConstructor(onConstructor = @__({@Builder}))
+@Validation("{ contentQuality : { $gt : 0 } }")
+@Document(collection = "project")
 public class Project implements Evaluable {
 
     @Id
@@ -27,6 +29,14 @@ public class Project implements Evaluable {
     @NonNull
     private Float topicStrength;
 
+    @Builder
+    private Project(@NonNull final Float contentSize, @NonNull final Float contentQuality, @NonNull final Float
+            topicStrength) {
+        this.contentSize = contentSize;
+        this.contentQuality = contentQuality;
+        this.topicStrength = topicStrength;
+    }
+
     @Override
     public float evaluate() {
         return Math.min(1f, Math.max(0f, 0.1f + topicStrength + contentSize / contentQuality));
@@ -39,10 +49,10 @@ public class Project implements Evaluable {
 
     public static void main(String[] args) {
         Project project = Project.builder()
-                                 .contentSize(0.3F)
-                                 .contentQuality(0.5F)
-                                 .topicStrength(0.1F)
-                                 .build();
+                .contentSize(0.3F)
+                .contentQuality(0.5F)
+                .topicStrength(0.1F)
+                .build();
         System.out.printf("project=%s%n", project);
     }
 

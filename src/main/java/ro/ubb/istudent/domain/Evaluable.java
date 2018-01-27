@@ -8,7 +8,6 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 26.01.2018.
  */
-@Document(collection = "evaluables")
 public interface Evaluable extends Serializable {
 
     float evaluate();
