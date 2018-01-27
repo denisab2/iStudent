@@ -2,6 +2,7 @@ package ro.ubb.istudent.domain;
 
 import lombok.*;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Validation;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,6 +15,7 @@ import java.util.*;
 @Setter
 @ToString
 @EqualsAndHashCode
+@Validation("{ requiredScore : { &gt : 0, &lt : 1 } }")
 @Document(collection = "quizz")
 public class Quizz implements Evaluable {
 

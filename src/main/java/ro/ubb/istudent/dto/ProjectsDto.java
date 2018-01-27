@@ -23,10 +23,10 @@ public class ProjectsDto implements Dto {
                 .map(project -> ProjectDto.builder()
                         .projectId(project.getProjectId()
                                 .toString())
-                        .contentSize(project.getContentSize())
-                        .contentQuality(project.getContentQuality())
-                        .topicStrength(project.getTopicStrength())
-                        .build())
+                .contentSize(project.getContentSize())
+                .contentQuality(project.getContentQuality())
+                .topicStrength(project.getTopicStrength())
+                .build())
                 .collect(Collectors.toList());
     }
 
