@@ -14,10 +14,9 @@ public interface ProjectService {
     List<Project> findAll();
 
     @NonNull
-    Project create(@NonNull final Float contentSize, @NonNull final Float contentQuality, @NonNull final Float
+    Project save(@NonNull final Float contentSize, @NonNull final Float contentQuality, @NonNull final Float
             topicStrength);
 
-    @NonNull
-    Project save(@NonNull final Project project);
+    void delete(@NonNull final String proiectId);
 
 }

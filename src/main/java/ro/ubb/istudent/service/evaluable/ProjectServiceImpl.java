@@ -1,5 +1,6 @@
 package ro.ubb.istudent.service.evaluable;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project create(Float contentSize, Float contentQuality, Float topicStrength) {
+    public Project save(Float contentSize, Float contentQuality, Float topicStrength) {
         logger.trace("creating project: contentSize={}, contentQuality={}, topicStrength={}", contentSize,
                      contentQuality, topicStrength);
         Project project = Project.builder()
@@ -43,10 +44,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project save(Project project) {
-        logger.trace("saving project={}", project);
-        project = projectRepository.save(project);
-        logger.trace("saved project={}", project);
-        return project;
+    public void delete(String projectId) {
+        logger.info("deleting project={}", projectId);
+        projectRepository.delete(new ObjectId(projectId));
     }
 }

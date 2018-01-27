@@ -53,11 +53,15 @@ public class EvaluationServiceFacadeImpl implements EvaluationServiceFacade {
     public Evaluable save(Evaluable evaluable) {
         logger.trace("saving evaluable={}", evaluable);
         if (evaluable instanceof Quizz) {
-            evaluable = quizzService.save((Quizz) evaluable);
+            Quizz quizz = (Quizz) evaluable;
+            evaluable = quizzService.save(quizz.getQuestionPool(), quizz.getRequiredScore());
         } else if (evaluable instanceof Homework) {
-            evaluable = homeworkService.save((Homework) evaluable);
+            Homework homework = (Homework) evaluable;
+            evaluable = homeworkService.save(homework.getDeadline(), homework.getDelayedDays());
         } else if (evaluable instanceof Project) {
-            evaluable = projectService.save((Project) evaluable);
+            Project project = (Project) evaluable;
+            evaluable = projectService.save(project.getContentSize(), project.getContentQuality(), project
+                    .getTopicStrength());
         } else {
             throw new NotImplementedException();
         }

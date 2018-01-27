@@ -16,9 +16,7 @@ public interface QuizzService {
     List<Quizz> findAll();
 
     @NonNull
-    Quizz create(@NonNull final Map<IQuestion, String> questionPool, @NonNull final float requiredScore);
+    Quizz save(@NonNull final Map<IQuestion, String> questionPool, @NonNull final float requiredScore);
 
-    @NonNull
-    Quizz save(@NonNull final Quizz quizz);
 
 }
