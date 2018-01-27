@@ -31,7 +31,7 @@ public class QuizzServiceImpl implements QuizzService {
     }
 
     @Override
-    public Quizz create(Map<IQuestion, String> questionPool, float requiredScore) {
+    public Quizz save(Map<IQuestion, String> questionPool, float requiredScore) {
         logger.trace("creating quizz: questionPool={}, requiredScore={}", questionPool, requiredScore);
         Quizz quizz = Quizz.builder()
                            .requiredScore(0.5f)
@@ -39,14 +39,6 @@ public class QuizzServiceImpl implements QuizzService {
                            .build();
         quizz = quizzRepository.save(quizz);
         logger.trace("created quizz={}", quizz);
-        return quizz;
-    }
-
-    @Override
-    public Quizz save(Quizz quizz) {
-        logger.trace("saving quizz={}", quizz);
-        quizz = quizzRepository.save(quizz);
-        logger.trace("saved quizz={}", quizz);
         return quizz;
     }
 

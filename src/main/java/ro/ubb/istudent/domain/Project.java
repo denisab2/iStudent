@@ -47,13 +47,4 @@ public class Project implements Evaluable {
         return evaluate() > 0.4f;
     }
 
-    public static void main(String[] args) {
-        Project project = Project.builder()
-                .contentSize(0.3F)
-                .contentQuality(0.5F)
-                .topicStrength(0.1F)
-                .build();
-        System.out.printf("project=%s%n", project);
-    }
-
 }

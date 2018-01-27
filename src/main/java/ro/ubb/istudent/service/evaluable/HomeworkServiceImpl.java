@@ -30,7 +30,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Homework create(Date deadLine, Integer delayedDays) {
+    public Homework save(Date deadLine, Integer delayedDays) {
         logger.trace("creating homework: deadline={}, delayedDays={}", deadLine, delayedDays);
         Homework homework = Homework.builder()
                                     .deadline(deadLine)
@@ -41,11 +41,4 @@ public class HomeworkServiceImpl implements HomeworkService {
         return homework;
     }
 
-    @Override
-    public Homework save(Homework homework) {
-        logger.trace("saving homework={}", homework);
-        homework = homeworkRepository.save(homework);
-        logger.trace("saved homework={}", homework);
-        return homework;
-    }
 }

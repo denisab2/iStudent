@@ -19,7 +19,7 @@ public class DemoRunner {
         String s = "input";
         // Press Ctrl+C to end.
         try {
-            System.out.println("Enter the type of person you want to create (Student, Secretary or Professor) ( 'q' to quit) ");
+            System.out.println("Enter the type of person you want to save (Student, Secretary or Professor) ( 'q' to quit) ");
 
             while (!s.toLowerCase().equals("q")) {
                 s = new BufferedReader(new InputStreamReader(System.in)).readLine();

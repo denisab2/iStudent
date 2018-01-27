@@ -15,9 +15,6 @@ public interface HomeworkService {
     List<Homework> findAll();
 
     @NonNull
-    Homework create(@NonNull final Date deadLine, @NonNull final Integer delayedDays);
-
-    @NonNull
-    Homework save(@NonNull final Homework homework);
+    Homework save(@NonNull final Date deadLine, @NonNull final Integer delayedDays);
 
 }
