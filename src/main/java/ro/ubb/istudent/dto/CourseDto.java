@@ -1,5 +1,9 @@
 package ro.ubb.istudent.dto;
 
+import ro.ubb.istudent.domain.CourseWeek;
+import ro.ubb.istudent.domain.Quizz;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDto implements Dto {
@@ -11,6 +15,10 @@ public class CourseDto implements Dto {
     private Boolean isPublished;
 
     private String teacherId;
+
+    private List<Quizz> exams = new ArrayList<>();
+
+    private List<CourseWeek> courseWeeks = new ArrayList<>();
 
     private List<AssignmentDto> assignments;
 
@@ -81,5 +89,21 @@ public class CourseDto implements Dto {
 
     public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public List<Quizz> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<Quizz> exams) {
+        this.exams = exams;
+    }
+
+    public List<CourseWeek> getCourseWeeks() {
+        return courseWeeks;
+    }
+
+    public void setCourseWeeks(List<CourseWeek> courseWeeks) {
+        this.courseWeeks = courseWeeks;
     }
 }

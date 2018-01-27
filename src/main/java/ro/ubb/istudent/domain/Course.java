@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,9 @@ public class Course implements Serializable {
 
     private ObjectId teacherId;
 
+    private List<Quizz> exams = new ArrayList<>();
+
+    private List<CourseWeek> courseWeeks = new ArrayList<>();
     @DBRef
     private List<Assignment> assignments;
 
@@ -95,5 +99,21 @@ public class Course implements Serializable {
 
     public void setTeacherId(ObjectId teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public List<Quizz> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<Quizz> exams) {
+        this.exams = exams;
+    }
+
+    public List<CourseWeek> getCourseWeeks() {
+        return courseWeeks;
+    }
+
+    public void setCourseWeeks(List<CourseWeek> courseWeeks) {
+        this.courseWeeks = courseWeeks;
     }
 }

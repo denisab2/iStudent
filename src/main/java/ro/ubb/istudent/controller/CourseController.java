@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ro.ubb.istudent.domain.Course;
 import ro.ubb.istudent.dto.CourseDto;
 import ro.ubb.istudent.service.CourseService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -37,5 +39,18 @@ public class CourseController {
     @RequestMapping(value="/course/save", method = RequestMethod.POST)
     public ResponseEntity saveCourse(@RequestBody CourseDto courseDto){
         return new ResponseEntity(courseService.saveCourse(courseDto), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/courses", method = RequestMethod.GET)
+    public ResponseEntity<CourseDto> getCourses(){
+        List<CourseDto> courses = courseService.findAll();
+        return new ResponseEntity(courses, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/coursesPublished", method = RequestMethod.GET)
+    public ResponseEntity<CourseDto> getCoursesPublished(){
+        List<CourseDto> courses = courseService.findAllPublished();
+        return new ResponseEntity(courses, HttpStatus.OK);
     }
 }
